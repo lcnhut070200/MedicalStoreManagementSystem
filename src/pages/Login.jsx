@@ -5,7 +5,69 @@ import "adminbsb-materialdesign/plugins/animate-css/animate.css";
 import "adminbsb-materialdesign/css/style.css";
 import GoogleFontLoader from "react-google-font-loader";
 
+import AuthHandler from "../utils/AuthHandler";
 class Login extends React.Component {
+  state = {
+    username: "",
+    password: "",
+    btnDisabled: true,
+    loginStatus: 0,
+  };
+
+  saveInputs = (e) => {
+    var key = e.target.name;
+    this.setState({ [key]: e.target.value });
+    if (this.state.username !== "" && this.state.password !== "") {
+      this.setState({ btnDisabled: false });
+    } else {
+      this.setState({ btnDisabled: true });
+    }
+  };
+
+  formSubmit = (e) => {
+    e.preventDefault();
+    console.log(this.state);
+    this.setState({ loginStatus: 1 });
+    AuthHandler.login(
+      this.state.username,
+      this.state.password,
+      this.handleAjaxResponse
+    );
+  };
+
+  handleAjaxResponse = (data) => {
+    console.log(data);
+    if (data.error) {
+      this.setState({ loginStatus: 4 });
+    } else {
+      this.setState({ loginStatus: 3 });
+    }
+  };
+
+  getMessage = () => {
+    if (this.state.loginStatus === 0) {
+      return "";
+    } else if (this.state.loginStatus === 1) {
+      return (
+        <div className="alert alert-warning">
+          <strong>Logging in!</strong>Please wait....
+        </div>
+      );
+    } else if (this.state.loginStatus === 3) {
+      return (
+        <div className="alert alert-success">
+          <strong>Logging sucessfull!</strong>
+        </div>
+      );
+    } else if (this.state.loginStatus === 4) {
+      return (
+        <div className="alert alert-danger">
+          <strong>Invalid login details!</strong>
+        </div>
+      );
+    }
+  };
+
   render() {
     document.body.className = "login-page";
 
@@ -26,14 +88,14 @@ class Login extends React.Component {
 
         <div className="login-box">
           <div className="logo">
-            <a href="javascript:void(0);">
+            <a>
               Admin<b>BSB</b>
             </a>
             <small>Admin BootStrap Based - Material Design</small>
           </div>
           <div className="card">
             <div className="body">
-              <form id="sign_in" method="POST">
+              <form id="sign_in" method="POST" onSubmit={this.formSubmit}>
                 <div className="msg">Sign in to start your session</div>
                 <div className="input-group">
                   <span className="input-group-addon">
@@ -46,7 +108,8 @@ class Login extends React.Component {
                       name="username"
                       placeholder="Username"
                       required
-                      autofocus
+                      autoFocus
+                      onChange={this.saveInputs}
                     />
                   </div>
                 </div>
@@ -61,6 +124,7 @@ class Login extends React.Component {
                       name="password"
                       placeholder="Password"
                       required
+                      onChange={this.saveInputs}
                     />
                   </div>
                 </div>
@@ -72,17 +136,19 @@ class Login extends React.Component {
                       id="rememberme"
                       className="filled-in chk-col-pink"
                     />
-                    <label for="rememberme">Remember Me</label>
+                    <label htmlFor="rememberme">Remember Me</label>
                   </div>
                   <div className="col-xs-4">
                     <button
                       className="btn btn-block bg-pink waves-effect"
                       type="submit"
+                      disabled={this.state.btnDisabled}
                     >
                       SIGN IN
                     </button>
                   </div>
                 </div>
+                {this.getMessage()}
                 <div className="row m-t-15 m-b--20">
                   <div className="col-xs-6">
                     <a href="sign-up.html">Register Now!</a>

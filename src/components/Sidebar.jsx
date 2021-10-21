@@ -19,7 +19,6 @@ class Sidebar extends React.Component {
   }
 
   handleMouseClick = (e) => {
-    console.log("ok");
     if (e.target === this.divref.current) {
       return;
     } else {

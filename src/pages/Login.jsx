@@ -6,6 +6,8 @@ import "adminbsb-materialdesign/css/style.css";
 import GoogleFontLoader from "react-google-font-loader";
 
 import AuthHandler from "../utils/AuthHandler";
+import Config from "../utils/Config";
+import { Redirect } from "react-router";
 class Login extends React.Component {
   state = {
     username: "",
@@ -41,6 +43,7 @@ class Login extends React.Component {
       this.setState({ loginStatus: 4 });
     } else {
       this.setState({ loginStatus: 3 });
+      window.location = Config.homeURL;
     }
   };
 
@@ -69,6 +72,10 @@ class Login extends React.Component {
   };
 
   render() {
+    if (AuthHandler.loggedIn()) {
+      return <Redirect to={Config.homeURL} />;
+    }
+
     document.body.className = "login-page";
 
     return (

@@ -1,6 +1,7 @@
 import React from "react";
 import usericon from "adminbsb-materialdesign/images/user.png";
-
+import Config from "../utils/Config";
+import { Link } from "react-router-dom";
 class Sidebar extends React.Component {
   state = {
     defaultClass: "btn-group user-helper-dropdown",
@@ -81,22 +82,28 @@ class Sidebar extends React.Component {
                 position: "relative",
                 overflow: "hidden",
                 width: "auto",
-                height: "57px",
               }}
             >
               <ul
                 className="list"
-                style={{ overflow: "hidden", width: "auto", height: "57px" }}
+                style={{ overflow: "hidden", width: "auto" }}
               >
-                <li className="active">
-                  <a
-                    href="index.html"
-                    className="toggled waves-effect waves-block"
+                {Config.sidebarItem.map((item) => (
+                  <li
+                    key={item.index}
+                    className={
+                      item.index === this.props.activepage ? "active" : ""
+                    }
                   >
-                    <i className="material-icons">home</i>
-                    <span>Home</span>
-                  </a>
-                </li>
+                    <Link
+                      to={item.url}
+                      className="toggled waves-effect waves-block"
+                    >
+                      <i className="material-icons">{item.icons}</i>
+                      <span>{item.title}</span>
+                    </Link>
+                  </li>
+                ))}
               </ul>
 
               <div

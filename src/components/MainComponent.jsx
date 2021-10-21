@@ -3,7 +3,6 @@ import Overlay from "./Overlay";
 import PageLoader from "./PageLoader";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import HomeComponent from "./HomeComponent";
 import GoogleFontLoader from "react-google-font-loader";
 import "adminbsb-materialdesign/css/themes/all-themes.css";
 
@@ -11,6 +10,7 @@ class MainComponent extends React.Component {
   state = {
     bodyClass: "theme-red ls-closed",
     displayOverlay: "none",
+    width: window.screen.width,
   };
 
   onBarClick = () => {
@@ -23,8 +23,21 @@ class MainComponent extends React.Component {
     }
   };
 
+  onscreenresize = () => {
+    console.log(window.screen.width);
+    this.setState({ width: window.screen.width });
+  };
+
+  componentWillMount() {
+    window.addEventListener("resize", this.onscreenresize);
+  }
+
+  componentWillUnmount() {
+    window.RemoveEventListener("resize", this.onscreenresize);
+  }
+
   render() {
-    if (window.screen.width > 1150) {
+    if (this.state.width > 1150) {
       document.getElementById("root").className = "theme-red";
     } else {
       document.getElementById("root").className = this.state.bodyClass;
@@ -46,8 +59,8 @@ class MainComponent extends React.Component {
         />
         <Overlay display={this.state.displayOverlay} />
         <Navbar onBarClick={this.onBarClick} />
-        <Sidebar />
-        <HomeComponent />
+        <Sidebar activepage={this.props.activepage} />
+        <> {this.props.page}</>
       </>
     );
   }

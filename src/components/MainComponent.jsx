@@ -24,7 +24,6 @@ class MainComponent extends React.Component {
   };
 
   onscreenresize = () => {
-    console.log(window.screen.width);
     this.setState({ width: window.screen.width });
   };
 

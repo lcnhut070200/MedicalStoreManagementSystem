@@ -43,7 +43,7 @@ class Login extends React.Component {
       this.setState({ loginStatus: 4 });
     } else {
       this.setState({ loginStatus: 3 });
-      window.location = Config.homeURL;
+      window.location = Config.homeUrl;
     }
   };
 
@@ -73,7 +73,7 @@ class Login extends React.Component {
 
   render() {
     if (AuthHandler.loggedIn()) {
-      return <Redirect to={Config.homeURL} />;
+      return <Redirect to={Config.homeUrl} />;
     }
 
     document.body.className = "login-page";

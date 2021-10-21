@@ -5,11 +5,18 @@ import Login from "./pages/Login";
 import HomeComponent from "./pages/HomeComponent";
 import CompanyComponent from "./pages/CompanyComponent";
 import { PrivateRouteNew } from "./utils/PrivateRouteNew";
+import Config from "./utils/Config";
+import LogoutComponent from "./pages/LogoutComponent";
 
 ReactDom.render(
   <Router>
     <Switch>
       <Route exact path="/" component={Login}></Route>
+      <Route
+        exact
+        path={Config.logoutPageUrl}
+        component={LogoutComponent}
+      ></Route>
       <PrivateRouteNew
         exact
         path="/home"

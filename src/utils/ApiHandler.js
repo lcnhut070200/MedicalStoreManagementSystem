@@ -58,6 +58,44 @@ class ApiHandler {
 
     return response;
   }
+
+  async fetchCompanyDetails(id) {
+    await this.checkLogin();
+
+    var response = await axios.get(Config.companyApiUrl + "" + id + "/", {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
+  async editCompanyData(
+    name,
+    license_no,
+    address,
+    contact_no,
+    email,
+    description,
+    id
+  ) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.put(
+      Config.companyApiUrl + "" + id + "/",
+      {
+        name: name,
+        license_no: license_no,
+        address: address,
+        contact_no: contact_no,
+        email: email,
+        description: description,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
 }
 
 export default ApiHandler;

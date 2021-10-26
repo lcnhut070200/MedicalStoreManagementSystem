@@ -1,10 +1,11 @@
 import React from "react";
 import ApiHandler from "../utils/ApiHandler";
 
-class CompanyComponent extends React.Component {
+class CompanyDetailsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.formSubmit = this.formSubmit.bind(this);
+    console.log(props.match.params.id);
   }
 
   state = {
@@ -12,7 +13,14 @@ class CompanyComponent extends React.Component {
     errorMessage: "",
     btnMessage: 0,
     sendData: false,
-    companyDataList: [],
+    companyBank: [],
+    name: "",
+    license_no: "",
+    address: "",
+    contact_no: "",
+    email: "",
+    description: "",
+    // dataLoaded: false,
   };
 
   async formSubmit(e) {
@@ -20,26 +28,21 @@ class CompanyComponent extends React.Component {
     this.setState({ btnMessage: 1 });
 
     var apiHandler = new ApiHandler();
-    var response = await apiHandler.saveCompanyData(
+    var response = await apiHandler.editCompanyData(
       e.target.name.value,
       e.target.license_no.value,
       e.target.address.value,
-      e.target.contact.value,
+      e.target.contact_no.value,
       e.target.email.value,
-      e.target.description.value
+      e.target.description.value,
+      this.props.match.params.id
     );
 
     console.log(response);
     this.setState({
       btnMessage: 0,
-    });
-    this.setState({
       errorRes: response.data.error,
-    });
-    this.setState({
       errorMessage: response.data.message,
-    });
-    this.setState({
       sendData: true,
     });
   }
@@ -51,15 +54,24 @@ class CompanyComponent extends React.Component {
 
   async fetchComanyData() {
     var apiHandler = new ApiHandler();
-    var companyData = await apiHandler.fetchAllCompany();
-    console.log(companyData);
-    this.setState({ companyDataList: companyData.data.data });
+    var companyData = await apiHandler.fetchCompanyDetails(
+      this.props.match.params.id
+    );
+    console.log("data >>> ", companyData);
+    this.setState({
+      companyBank: companyData.data.data.company_bank,
+      name: companyData.data.data.name,
+      license_no: companyData.data.data.license_no,
+      address: companyData.data.data.address,
+      contact_no: companyData.data.data.contact_no,
+      email: companyData.data.data.email,
+      description: companyData.data.data.description,
+    });
   }
 
   viewCompanyDetails = (company_id) => {
-    console.log(company_id);
-    console.log(this.props);
-    this.props.history.push(`/companydetails/${company_id}`);
+    // console.log(company_id);
+    // console.log(this.props);
   };
 
   render() {
@@ -73,11 +85,11 @@ class CompanyComponent extends React.Component {
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div className="card">
                 <div className="header">
-                  <h2>ADD COMPANY</h2>
+                  <h2>EDIT Company</h2>
                 </div>
                 <div className="body">
                   <form onSubmit={this.formSubmit}>
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="email_address">Name</label>
                     <div className="form-group">
                       <div className="form-line">
                         <input
@@ -85,11 +97,12 @@ class CompanyComponent extends React.Component {
                           id="name"
                           name="name"
                           className="form-control"
-                          placeholder="Enter company name"
+                          placeholder="Enter Company Name"
+                          defaultValue={this.state.name}
                         />
                       </div>
                     </div>
-                    <label htmlFor="license_no">License No</label>
+                    <label htmlFor="email_address">License No.</label>
                     <div className="form-group">
                       <div className="form-line">
                         <input
@@ -97,11 +110,12 @@ class CompanyComponent extends React.Component {
                           id="license_no"
                           name="license_no"
                           className="form-control"
-                          placeholder="Enter company license number"
+                          placeholder="Enter License No."
+                          defaultValue={this.state.license_no}
                         />
                       </div>
                     </div>
-                    <label htmlFor="address">Address</label>
+                    <label htmlFor="email_address">Address</label>
                     <div className="form-group">
                       <div className="form-line">
                         <input
@@ -109,23 +123,25 @@ class CompanyComponent extends React.Component {
                           id="address"
                           name="address"
                           className="form-control"
-                          placeholder="Enter company address"
+                          placeholder="Enter Company Address"
+                          defaultValue={this.state.address}
                         />
                       </div>
                     </div>
-                    <label htmlFor="contact">Contact no</label>
+                    <label htmlFor="email_address">Contact No.</label>
                     <div className="form-group">
                       <div className="form-line">
                         <input
                           type="text"
-                          id="contact"
-                          name="contact"
+                          id="contact_no"
+                          name="contact_no"
                           className="form-control"
-                          placeholder="Enter company contact number"
+                          placeholder="Enter Contact No."
+                          defaultValue={this.state.contact_no}
                         />
                       </div>
                     </div>
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email_address">Email</label>
                     <div className="form-group">
                       <div className="form-line">
                         <input
@@ -133,11 +149,12 @@ class CompanyComponent extends React.Component {
                           id="email"
                           name="email"
                           className="form-control"
-                          placeholder="Enter company email"
+                          placeholder="Enter Company Email"
+                          defaultValue={this.state.email}
                         />
                       </div>
                     </div>
-                    <label htmlFor="description">Description</label>
+                    <label htmlFor="email_address">Description</label>
                     <div className="form-group">
                       <div className="form-line">
                         <input
@@ -145,7 +162,8 @@ class CompanyComponent extends React.Component {
                           id="description"
                           name="description"
                           className="form-control"
-                          placeholder="Enter description"
+                          placeholder="Enter Description"
+                          defaultValue={this.state.description}
                         />
                       </div>
                     </div>
@@ -153,25 +171,26 @@ class CompanyComponent extends React.Component {
                     <button
                       type="submit"
                       className="btn btn-primary m-t-15 waves-effect btn-block"
-                      disabled={this.state.btnMessage === 0 ? false : true}
+                      disabled={this.state.btnMessage == 0 ? false : true}
                     >
-                      {this.state.btnMessage === 0
-                        ? "Add Company"
-                        : "Adding Company please wait..."}
+                      {this.state.btnMessage == 0
+                        ? "Edit Company"
+                        : "Editing Company Please Wait.."}
                     </button>
                     <br />
-                    {this.state.errorRes === false &&
-                    this.state.sendData === true ? (
+                    {this.state.errorRes == false &&
+                    this.state.sendData == true ? (
                       <div className="alert alert-success">
                         <strong>Success!</strong> {this.state.errorMessage}.
                       </div>
                     ) : (
                       ""
                     )}
-                    {this.state.errorRes === true &&
-                    this.state.sendData === true ? (
+                    {this.state.errorRes == true &&
+                    this.state.sendData == true ? (
                       <div className="alert alert-danger">
-                        <strong>Failed!</strong> {this.state.errorMessage}.
+                        <strong>Failed!</strong>
+                        {this.state.errorMessage}.
                       </div>
                     ) : (
                       ""
@@ -181,48 +200,33 @@ class CompanyComponent extends React.Component {
               </div>
             </div>
           </div>
-
-          {/* Table  */}
           <div className="row clearfix">
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div className="card">
                 <div className="header">
-                  <h2>ALL COMPANIES</h2>
+                  <h2>Company Bank</h2>
                 </div>
                 <div className="body table-responsive">
                   <table className="table table-hover">
                     <thead>
                       <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>License</th>
-                        <th>Address</th>
-                        <th>Contact</th>
-                        <th>Email</th>
-                        <th>Description</th>
-                        <th>Added on</th>
+                        <th>#ID</th>
+                        <th>Account No.</th>
+                        <th>IFSC Code</th>
+                        <th>Added On</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.companyDataList.map((company) => (
+                      {this.state.companyBank.map((company) => (
                         <tr key={company.id}>
                           <td>{company.id}</td>
-                          <td>{company.name}</td>
-                          <td>{company.license_no}</td>
-                          <td>{company.address}</td>
-                          <td>{company.contact_no}</td>
-                          <td>{company.email}</td>
-                          <td>{company.description}</td>
+                          <td>{company.bank_account_no}</td>
+                          <td>{company.ifsc_no}</td>
                           <td>{new Date(company.added_on).toLocaleString()}</td>
                           <td>
-                            <button
-                              className="btn btn-block btn-warning"
-                              onClick={() =>
-                                this.viewCompanyDetails(company.id)
-                              }
-                            >
-                              View
+                            <button className="btn btn-block btn-danger">
+                              DELETE
                             </button>
                           </td>
                         </tr>
@@ -238,4 +242,5 @@ class CompanyComponent extends React.Component {
     );
   }
 }
-export default CompanyComponent;
+
+export default CompanyDetailsComponent;

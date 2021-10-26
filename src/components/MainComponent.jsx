@@ -56,6 +56,8 @@ class MainComponent extends React.Component {
       document.getElementById("root").className = this.state.bodyClass;
     }
 
+    var Page = this.props.page;
+
     return (
       <>
         <GoogleFontLoader
@@ -73,7 +75,7 @@ class MainComponent extends React.Component {
         <Overlay display={this.state.displayOverlay} />
         <Navbar onBarClick={this.onBarClick} />
         <Sidebar activepage={this.props.activepage} />
-        <> {this.props.page}</>
+        <Page {...this.props} />
       </>
     );
   }

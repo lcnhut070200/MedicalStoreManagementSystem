@@ -7,6 +7,7 @@ import CompanyComponent from "./pages/CompanyComponent";
 import { PrivateRouteNew } from "./utils/PrivateRouteNew";
 import Config from "./utils/Config";
 import LogoutComponent from "./pages/LogoutComponent";
+import CompanyDetailsComponent from "./pages/CompanyDetailsComponent";
 
 ReactDom.render(
   <Router>
@@ -21,13 +22,19 @@ ReactDom.render(
         exact
         path="/home"
         activepage="0"
-        page={<HomeComponent />}
+        page={HomeComponent}
       ></PrivateRouteNew>
       <PrivateRouteNew
         exact
         path="/company"
         activepage="1"
-        page={<CompanyComponent />}
+        page={CompanyComponent}
+      ></PrivateRouteNew>
+      <PrivateRouteNew
+        exact
+        path="/companydetails/:id"
+        activepage="1"
+        page={CompanyDetailsComponent}
       ></PrivateRouteNew>
     </Switch>
   </Router>,

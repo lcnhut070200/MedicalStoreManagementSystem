@@ -8,7 +8,7 @@ class Navbar extends React.Component {
           <div className="navbar-header">
             <a href="#" className="bars" onClick={this.props.onBarClick}></a>
             <a className="navbar-brand" href="index.html">
-              ADMINBSB - MATERIAL DESIGN
+              MEDICAL STORE MANAGEMENT SYSTEM
             </a>
           </div>
         </div>

@@ -7,10 +7,18 @@ import Config from "./Config";
 class ApiHandler {
   async checkLogin() {
     if (AuthHandler.checkTokenExpiry()) {
-      var response = await axios.post(Config.refreshApiUrl, {
-        refresh: AuthHandler.getRefreshToken(),
-      });
-      reactLocalStorage.set("token", response.data.access);
+      try {
+        var response = await axios.post(Config.refreshApiUrl, {
+          refresh: AuthHandler.getRefreshToken(),
+        });
+        reactLocalStorage.set("token", response.data.access);
+      } catch (error) {
+        console.log(error);
+
+        // not using valid token for refresh
+        AuthHandler.logoutUser();
+        window.location = "/";
+      }
     }
   }
 
@@ -22,7 +30,8 @@ class ApiHandler {
     email,
     description
   ) {
-    this.checkLogin();
+    await this.checkLogin();
+    // Wait until token get updated
 
     var response = await axios.post(
       Config.companyApiUrl,
@@ -36,6 +45,16 @@ class ApiHandler {
       },
       { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
     );
+
+    return response;
+  }
+
+  async fetchAllCompany() {
+    await this.checkLogin();
+
+    var response = await axios.get(Config.companyApiUrl, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
 
     return response;
   }

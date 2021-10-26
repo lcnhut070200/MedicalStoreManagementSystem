@@ -12,6 +12,7 @@ class CompanyComponent extends React.Component {
     errorMessage: "",
     btnMessage: 0,
     sendData: false,
+    companyDataList: [],
   };
 
   async formSubmit(e) {
@@ -41,6 +42,18 @@ class CompanyComponent extends React.Component {
     this.setState({
       sendData: true,
     });
+  }
+
+  // This method work when our page is ready
+  componentDidMount() {
+    this.fetchComanyData();
+  }
+
+  async fetchComanyData() {
+    var apiHandler = new ApiHandler();
+    var companyData = await apiHandler.fetchAllCompany();
+    console.log(companyData);
+    this.setState({ companyDataList: companyData.data.data });
   }
 
   render() {
@@ -134,23 +147,23 @@ class CompanyComponent extends React.Component {
                     <button
                       type="submit"
                       className="btn btn-primary m-t-15 waves-effect btn-block"
-                      disabled={this.state.btnMessage == 0 ? false : true}
+                      disabled={this.state.btnMessage === 0 ? false : true}
                     >
-                      {this.state.btnMessage == 0
+                      {this.state.btnMessage === 0
                         ? "Add Company"
                         : "Adding Company please wait..."}
                     </button>
                     <br />
-                    {this.state.errorRes == false &&
-                    this.state.sendData == true ? (
+                    {this.state.errorRes === false &&
+                    this.state.sendData === true ? (
                       <div className="alert alert-success">
                         <strong>Success!</strong> {this.state.errorMessage}.
                       </div>
                     ) : (
                       ""
                     )}
-                    {this.state.errorRes == true &&
-                    this.state.sendData == true ? (
+                    {this.state.errorRes === true &&
+                    this.state.sendData === true ? (
                       <div className="alert alert-danger">
                         <strong>Failed!</strong> {this.state.errorMessage}.
                       </div>
@@ -158,6 +171,53 @@ class CompanyComponent extends React.Component {
                       ""
                     )}
                   </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Table  */}
+          <div className="row clearfix">
+            <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div className="card">
+                <div className="header">
+                  <h2>ALL COMPANIES</h2>
+                </div>
+                <div className="body table-responsive">
+                  <table className="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>License</th>
+                        <th>Address</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Description</th>
+                        <th>Added on</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.companyDataList.map((company) => (
+                        <tr>
+                          <td>{company.id}</td>
+                          <td>{company.name}</td>
+                          <td>{company.license_no}</td>
+                          <td>{company.address}</td>
+                          <td>{company.contact_no}</td>
+                          <td>{company.email}</td>
+                          <td>{company.description}</td>
+                          <td>{company.added_on}</td>
+                          <td>
+                            <button className="btn btn-block btn-warning">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

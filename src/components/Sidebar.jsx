@@ -22,10 +22,8 @@ class Sidebar extends React.Component {
 
   handleMouseClick = (e) => {
     if (e.target === this.divref.current || e.target === this.divref2.current) {
-      console.log("Click");
       return;
     } else {
-      console.log("Outsite");
       this.setState({ defaultClass: "btn-group user-helper-dropdown" });
     }
   };
@@ -148,7 +146,7 @@ class Sidebar extends React.Component {
 
           <div className="legal">
             <div className="copyright">
-              © 2016 - 2017 <a href="#">AdminBSB - Material Design</a>.
+              © 2021 - 2022 <a href="#">Medical Store</a>
             </div>
             <div className="version">
               <b>Version: </b> 1.0.5

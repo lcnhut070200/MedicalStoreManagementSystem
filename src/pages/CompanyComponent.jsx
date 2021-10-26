@@ -2,10 +2,45 @@ import React from "react";
 import ApiHandler from "../utils/ApiHandler";
 
 class CompanyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.formSubmit = this.formSubmit.bind(this);
+  }
+
+  state = {
+    errorRes: false,
+    errorMessage: "",
+    btnMessage: 0,
+    sendData: false,
+  };
+
   async formSubmit(e) {
     e.preventDefault();
+    this.setState({ btnMessage: 1 });
+
     var apiHandler = new ApiHandler();
-    apiHandler.saveCompanyData();
+    var response = await apiHandler.saveCompanyData(
+      e.target.name.value,
+      e.target.license_no.value,
+      e.target.address.value,
+      e.target.contact.value,
+      e.target.email.value,
+      e.target.description.value
+    );
+
+    console.log(response);
+    this.setState({
+      btnMessage: 0,
+    });
+    this.setState({
+      errorRes: response.data.error,
+    });
+    this.setState({
+      errorMessage: response.data.message,
+    });
+    this.setState({
+      sendData: true,
+    });
   }
 
   render() {
@@ -99,9 +134,29 @@ class CompanyComponent extends React.Component {
                     <button
                       type="submit"
                       className="btn btn-primary m-t-15 waves-effect btn-block"
+                      disabled={this.state.btnMessage == 0 ? false : true}
                     >
-                      Add Company
+                      {this.state.btnMessage == 0
+                        ? "Add Company"
+                        : "Adding Company please wait..."}
                     </button>
+                    <br />
+                    {this.state.errorRes == false &&
+                    this.state.sendData == true ? (
+                      <div className="alert alert-success">
+                        <strong>Success!</strong> {this.state.errorMessage}.
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                    {this.state.errorRes == true &&
+                    this.state.sendData == true ? (
+                      <div className="alert alert-danger">
+                        <strong>Failed!</strong> {this.state.errorMessage}.
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </form>
                 </div>
               </div>

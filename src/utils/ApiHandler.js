@@ -96,6 +96,50 @@ class ApiHandler {
 
     return response;
   }
+
+  async saveCompanyBankData(bank_account_no, ifsc_no, company_id) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.post(
+      Config.companyBankApiUrl,
+      {
+        bank_account_no: bank_account_no,
+        ifsc_no: ifsc_no,
+        company_id: company_id,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
+  async fetchCompanyBankDetails(id) {
+    await this.checkLogin();
+
+    var response = await axios.get(Config.companyBankApiUrl + "" + id + "/", {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
+  async editCompanyBankData(bank_account_no, ifsc_no, company_id, id) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.put(
+      Config.companyBankApiUrl + "" + id + "/",
+      {
+        bank_account_no: bank_account_no,
+        ifsc_no: ifsc_no,
+        company_id: company_id,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
 }
 
 export default ApiHandler;

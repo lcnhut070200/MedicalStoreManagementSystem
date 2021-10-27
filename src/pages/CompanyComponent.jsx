@@ -13,6 +13,7 @@ class CompanyComponent extends React.Component {
     btnMessage: 0,
     sendData: false,
     companyDataList: [],
+    dataLoaded: false,
   };
 
   async formSubmit(e) {
@@ -32,14 +33,8 @@ class CompanyComponent extends React.Component {
     console.log(response);
     this.setState({
       btnMessage: 0,
-    });
-    this.setState({
       errorRes: response.data.error,
-    });
-    this.setState({
       errorMessage: response.data.message,
-    });
-    this.setState({
       sendData: true,
     });
   }
@@ -53,7 +48,12 @@ class CompanyComponent extends React.Component {
     var apiHandler = new ApiHandler();
     var companyData = await apiHandler.fetchAllCompany();
     console.log(companyData);
-    this.setState({ companyDataList: companyData.data.data });
+    this.setState({
+      companyDataList: companyData.data.data,
+    });
+    this.setState({
+      dataLoaded: true,
+    });
   }
 
   viewCompanyDetails = (company_id) => {
@@ -149,7 +149,6 @@ class CompanyComponent extends React.Component {
                         />
                       </div>
                     </div>
-                    <br />
                     <button
                       type="submit"
                       className="btn btn-primary m-t-15 waves-effect btn-block"
@@ -187,6 +186,22 @@ class CompanyComponent extends React.Component {
             <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div className="card">
                 <div className="header">
+                  {this.state.dataLoaded === false ? (
+                    <div className="text-center">
+                      <div class="preloader pl-size-xl">
+                        <div class="spinner-layer">
+                          <div class="circle-clipper left">
+                            <div class="circle"></div>
+                          </div>
+                          <div class="circle-clipper right">
+                            <div class="circle"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <h2>ALL COMPANIES</h2>
                 </div>
                 <div className="body table-responsive">

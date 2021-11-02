@@ -207,6 +207,52 @@ class ApiHandler {
 
     return response;
   }
+
+  async editMedicineData(
+    name,
+    medical_typ,
+    buy_price,
+    sell_price,
+    c_gst,
+    s_gst,
+    batch_no,
+    shelf_no,
+    expire_date,
+    mfg_date,
+    company_id,
+    description,
+    in_stock_total,
+    qty_in_strip,
+    medicineDetails,
+    id
+  ) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.put(
+      Config.medicineApiUrl + id + "/",
+      {
+        name: name,
+        medical_typ: medical_typ,
+        buy_price: buy_price,
+        sell_price: sell_price,
+        c_gst: c_gst,
+        s_gst: s_gst,
+        batch_no: batch_no,
+        shelf_no: shelf_no,
+        expire_date: expire_date,
+        mfg_date: mfg_date,
+        company_id: company_id,
+        description: description,
+        in_stock_total: in_stock_total,
+        qty_in_strip: qty_in_strip,
+        medicine_details: medicineDetails,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
 }
 
 export default ApiHandler;

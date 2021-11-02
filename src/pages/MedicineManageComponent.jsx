@@ -32,14 +32,15 @@ class MedicineManageComponent extends React.Component {
     description: "",
     in_stock_total: "",
     qty_in_strip: "",
+    total_salt_list: 0,
+    medicie_id: 0,
   };
 
   async formSubmit(e) {
     e.preventDefault();
     this.setState({ btnMessage: 1 });
-
     var apiHandler = new ApiHandler();
-    var response = await apiHandler.saveMedicineData(
+    var response = await apiHandler.editMedicineData(
       e.target.name.value,
       e.target.medical_typ.value,
       e.target.buy_price.value,
@@ -54,7 +55,8 @@ class MedicineManageComponent extends React.Component {
       e.target.description.value,
       e.target.in_stock_total.value,
       e.target.qty_in_strip.value,
-      this.state.medicineDetails
+      this.state.medicineDetails,
+      this.state.medicie_id
     );
 
     console.log(response);
@@ -74,7 +76,6 @@ class MedicineManageComponent extends React.Component {
     var apiHandler = new ApiHandler();
     var companyData = await apiHandler.fetchCompanyOnly();
     var medicineData = await apiHandler.fetchAllMedicine();
-    console.log(medicineData);
     this.setState({
       companyList: companyData.data,
       medicineDataList: medicineData.data.data,
@@ -84,17 +85,18 @@ class MedicineManageComponent extends React.Component {
 
   addItem = () => {
     var item = {
+      id: 0,
       salt_name: "",
       salt_qty: "",
       salt_qty_type: "",
-      description: "",
+      detailsDescription: "",
     };
     this.state.medicineDetails.push(item);
     this.setState({});
   };
 
   removeItem = () => {
-    if (this.state.medicineDetails.length !== 1) {
+    if (this.state.medicineDetails.length !== this.state.total_salt_list) {
       this.state.medicineDetails.pop(this.state.medicineDetails.length - 1);
     }
     this.setState({});
@@ -102,6 +104,7 @@ class MedicineManageComponent extends React.Component {
 
   viewMedicineDetails = (index) => {
     this.setState({
+      medicie_id: this.state.medicineDataList[index].id,
       name: this.state.medicineDataList[index].name,
       medical_typ: this.state.medicineDataList[index].medical_typ,
       buy_price: this.state.medicineDataList[index].buy_price,
@@ -117,6 +120,8 @@ class MedicineManageComponent extends React.Component {
       in_stock_total: this.state.medicineDataList[index].in_stock_total,
       qty_in_strip: this.state.medicineDataList[index].qty_in_strip,
       medicineDetails: this.state.medicineDataList[index].medicine_details,
+      total_salt_list:
+        this.state.medicineDataList[index].medicine_details.length,
     });
   };
 
@@ -480,17 +485,19 @@ class MedicineManageComponent extends React.Component {
                           </div>
                         </div>
                         <div className="col-lg-3">
-                          <label htmlFor="detailDescription">Description</label>
+                          <label htmlFor="detailsDescription">
+                            Description
+                          </label>
                           <div className="form-line">
                             <input
                               type="text"
-                              id="detailDescription"
-                              name="detailDescription"
+                              id="detailsDescription"
+                              name="detailsDescription"
                               className="form-control"
                               placeholder="Enter description"
                               onChange={this.handleInput}
                               data-index={index}
-                              defaultValue={item.description}
+                              defaultValue={item.detailsDescription}
                             />
                           </div>
                         </div>
@@ -502,8 +509,8 @@ class MedicineManageComponent extends React.Component {
                       disabled={this.state.btnMessage === 0 ? false : true}
                     >
                       {this.state.btnMessage === 0
-                        ? "Add medicine"
-                        : "Adding medicine please wait..."}
+                        ? "Update medicine"
+                        : "Updating medicine please wait..."}
                     </button>
                     <br />
                     {this.state.errorRes === false &&

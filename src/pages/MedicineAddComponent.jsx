@@ -19,7 +19,7 @@ class MedicineAddComponent extends React.Component {
         salt_name: "",
         salt_qty: "",
         salt_qty_type: "",
-        description: "",
+        detailsDescription: "",
       },
     ],
   };
@@ -73,7 +73,7 @@ class MedicineAddComponent extends React.Component {
       salt_name: "",
       salt_qty: "",
       salt_qty_type: "",
-      description: "",
+      detailsDescription: "",
     };
     this.state.medicineDetails.push(item);
     this.setState({});
@@ -343,12 +343,14 @@ class MedicineAddComponent extends React.Component {
                           </div>
                         </div>
                         <div className="col-lg-3">
-                          <label htmlFor="detailDescription">Description</label>
+                          <label htmlFor="detailsDescription">
+                            Description
+                          </label>
                           <div className="form-line">
                             <input
                               type="text"
-                              id="detailDescription"
-                              name="detailDescription"
+                              id="detailsDescription"
+                              name="detailsDescription"
                               className="form-control"
                               placeholder="Enter description"
                               onChange={this.handleInput}

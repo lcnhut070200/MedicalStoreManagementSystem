@@ -22,6 +22,7 @@ class ApiHandler {
     }
   }
 
+  // Company
   async saveCompanyData(
     name,
     license_no,
@@ -151,6 +152,7 @@ class ApiHandler {
     return response;
   }
 
+  // Meicine
   async saveMedicineData(
     name,
     medical_typ,
@@ -192,6 +194,16 @@ class ApiHandler {
       },
       { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
     );
+
+    return response;
+  }
+
+  async fetchAllMedicine() {
+    await this.checkLogin();
+
+    var response = await axios.get(Config.medicineApiUrl, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
 
     return response;
   }

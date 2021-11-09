@@ -37,6 +37,7 @@ class CompanyComponent extends React.Component {
       errorMessage: response.data.message,
       sendData: true,
     });
+    this.updateDataAgain();
   }
 
   // This method work when our page is ready
@@ -45,14 +46,17 @@ class CompanyComponent extends React.Component {
   }
 
   async fetchComanyData() {
-    var apiHandler = new ApiHandler();
-    var companyData = await apiHandler.fetchAllCompany();
-    console.log(companyData);
-    this.setState({
-      companyDataList: companyData.data.data,
-    });
+    this.updateDataAgain();
     this.setState({
       dataLoaded: true,
+    });
+  }
+
+  async updateDataAgain() {
+    var apiHandler = new ApiHandler();
+    var companyData = await apiHandler.fetchAllCompany();
+    this.setState({
+      companyDataList: companyData.data.data,
     });
   }
 

@@ -56,6 +56,10 @@ class EmployeeComponent extends React.Component {
     });
   }
 
+  showEmpDetails = (eid) => {
+    this.props.history.push("/employeeDetails/" + eid);
+  };
+
   render() {
     return (
       <section className="content">
@@ -211,7 +215,12 @@ class EmployeeComponent extends React.Component {
                             {new Date(employee.added_on).toLocaleString()}
                           </td>
                           <td>
-                            <button className="btn btn-warning">View</button>
+                            <button
+                              className="btn btn-warning"
+                              onClick={() => this.showEmpDetails(employee.id)}
+                            >
+                              View
+                            </button>
                           </td>
                         </tr>
                       ))}

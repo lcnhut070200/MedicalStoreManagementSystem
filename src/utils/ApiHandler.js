@@ -317,6 +317,91 @@ class ApiHandler {
 
     return response;
   }
+
+  async fetchEmployeeByID(id) {
+    await this.checkLogin();
+
+    var response = await axios.get(Config.employeeApiUrl + "" + id + "/", {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
+  async editEmployee(name, joining_date, phone, address, id) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.put(
+      Config.employeeApiUrl + "" + id + "/",
+      {
+        name: name,
+        joining_date: joining_date,
+        phone: phone,
+        address: address,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
+  // Emloyee Salary
+  async fetchEmpSalary(id) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.get(Config.employeeSalaryBydIDApiUrl + "" + id, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
+  async saveEmpSalary(salary_date, salary_amount, employee_id) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.post(
+      Config.employeeSalaryApiUrl,
+      {
+        salary_date: salary_date,
+        salary_amount: salary_amount,
+        employee_id: employee_id,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
+  async saveEmpBank(bank_account_no, ifsc_no, employee_id) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.post(
+      Config.employeeBankApiUrl,
+      {
+        bank_account_no: bank_account_no,
+        ifsc_no: ifsc_no,
+        employee_id: employee_id,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
+  async fetchEmpBank(id) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.get(Config.employeeBankBydIDApiUrl + "" + id, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
 }
 
 export default ApiHandler;

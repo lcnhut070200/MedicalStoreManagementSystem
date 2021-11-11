@@ -6,6 +6,7 @@ class Config {
   static companyAccountApiUrl = "http://127.0.0.1:8000/api/companyaccount/";
   static companyOnlyApiUrl = "http://127.0.0.1:8000/api/companyonly/";
   static medicineApiUrl = "http://127.0.0.1:8000/api/medicine/";
+  static employeeApiUrl = "http://127.0.0.1:8000/api/employee/";
   static homeUrl = "/home";
   static logoutPageUrl = "/logout";
   static sidebarItem = [
@@ -27,6 +28,13 @@ class Config {
       index: "4",
       title: "Manage Company Account",
       url: "/manageCompanyAccount",
+      icons: "assessment",
+    },
+
+    {
+      index: "5",
+      title: "Manage Employee",
+      url: "/manageEmployee",
       icons: "assessment",
     },
   ];

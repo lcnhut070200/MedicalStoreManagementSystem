@@ -288,6 +288,35 @@ class ApiHandler {
 
     return response;
   }
+
+  // Employee
+  async saveEmployee(name, joining_date, phone, address) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.post(
+      Config.employeeApiUrl,
+      {
+        name: name,
+        joining_date: joining_date,
+        phone: phone,
+        address: address,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
+  async fetchAllEmployee() {
+    await this.checkLogin();
+
+    var response = await axios.get(Config.employeeApiUrl, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
 }
 
 export default ApiHandler;

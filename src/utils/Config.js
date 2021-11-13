@@ -10,9 +10,10 @@ class Config {
 
   // Medicine
   static medicineApiUrl = "http://127.0.0.1:8000/api/medicine/";
-  static employeeApiUrl = "http://127.0.0.1:8000/api/employee/";
+  static meidicneByNameApiUrl = "http://127.0.0.1:8000/api/medicinebyname/";
 
-  // Employee salary
+  // Employee
+  static employeeApiUrl = "http://127.0.0.1:8000/api/employee/";
   static employeeSalaryBydIDApiUrl =
     "http://127.0.0.1:8000/api/employee_salary_byid/";
   static employeeSalaryApiUrl =
@@ -21,6 +22,9 @@ class Config {
   static employeeBankApiUrl = "http://127.0.0.1:8000/api/employee_all_bank/";
   static employeeBankBydIDApiUrl =
     "http://127.0.0.1:8000/api/employee_bank_byid/";
+
+  // Bill
+  static generateBillApiUrl = "http://127.0.0.1:8000/api/generate_bill/";
 
   static homeUrl = "/home";
   static logoutPageUrl = "/logout";
@@ -51,6 +55,13 @@ class Config {
       index: "5",
       title: "Manage Employee",
       url: "/manageEmployee",
+      icons: "assessment",
+    },
+
+    {
+      index: "6",
+      title: "Generate Bill",
+      url: "/generateBill",
       icons: "assessment",
     },
   ];

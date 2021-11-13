@@ -289,6 +289,22 @@ class ApiHandler {
     return response;
   }
 
+  async fetchMedicineByName(name) {
+    if (name !== "") {
+      await this.checkLogin();
+
+      var response = await axios.get(Config.meidicneByNameApiUrl + "" + name, {
+        headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+      });
+
+      return response;
+    } else {
+      return {
+        data: [],
+      };
+    }
+  }
+
   // Employee
   async saveEmployee(name, joining_date, phone, address) {
     await this.checkLogin();
@@ -399,6 +415,25 @@ class ApiHandler {
     var response = await axios.get(Config.employeeBankBydIDApiUrl + "" + id, {
       headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
     });
+
+    return response;
+  }
+
+  // Bill
+  async generateBill(customer_name, address, phone, medicineDetails) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.post(
+      Config.generateBillApiUrl,
+      {
+        name: customer_name,
+        address: address,
+        contact_no: phone,
+        medicine_details: medicineDetails,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
 
     return response;
   }

@@ -26,6 +26,9 @@ class Config {
   // Bill
   static generateBillApiUrl = "http://127.0.0.1:8000/api/generate_bill/";
 
+  // Customer Request
+  static customerRequestApiUrl = "http://127.0.0.1:8000/api/customer_request/";
+
   static homeUrl = "/home";
   static logoutPageUrl = "/logout";
 
@@ -62,6 +65,13 @@ class Config {
       index: "6",
       title: "Generate Bill",
       url: "/generateBill",
+      icons: "assessment",
+    },
+
+    {
+      index: "7",
+      title: "Customer Request",
+      url: "/customerRequest",
       icons: "assessment",
     },
   ];

@@ -16,6 +16,7 @@ import CompanyAccountComponent from "./pages/CompanyAccountComponent";
 import EmployeeComponent from "./pages/EmployeeComponent";
 import EmployeeDetailsComponent from "./pages/EmployeeDetailsComponent";
 import BillGenerateComponent from "./pages/BIllGenerateComponent";
+import CustomerRequestComponent from "./pages/CustomerRequestComponent";
 
 ReactDom.render(
   <Router>
@@ -101,6 +102,14 @@ ReactDom.render(
         path="/generateBill"
         activepage="6"
         page={BillGenerateComponent}
+      ></PrivateRouteNew>
+
+      {/* Customer Request */}
+      <PrivateRouteNew
+        exact
+        path="/customerRequest"
+        activepage="7"
+        page={CustomerRequestComponent}
       ></PrivateRouteNew>
     </Switch>
   </Router>,

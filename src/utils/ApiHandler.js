@@ -437,6 +437,59 @@ class ApiHandler {
 
     return response;
   }
+
+  // Customer Request
+  async fetchCustomerRequest() {
+    await this.checkLogin();
+
+    var response = await axios.get(Config.customerRequestApiUrl, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
+
+    return response;
+  }
+
+  async saveCustomerRequest(customer_name, phone, medicine_details) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.post(
+      Config.customerRequestApiUrl,
+      {
+        customer_name: customer_name,
+        phone: phone,
+        medicine_details: medicine_details,
+      },
+      { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
+    );
+
+    return response;
+  }
+
+  async updateCustomerRequest(
+    customer_request_id,
+    customer_name,
+    phone,
+    medicine_details
+  ) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.put(
+      Config.customerRequestApiUrl + customer_request_id + "/",
+      {
+        customer_name: customer_name,
+        phone: phone,
+        medicine_details: medicine_details,
+        status: 1,
+      },
+      {
+        headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+      }
+    );
+
+    return response;
+  }
 }
 
 export default ApiHandler;

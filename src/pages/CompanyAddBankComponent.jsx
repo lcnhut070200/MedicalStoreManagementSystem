@@ -22,7 +22,7 @@ class CompanyAddBankComponent extends React.Component {
     var apiHandler = new ApiHandler();
     var response = await apiHandler.saveCompanyBankData(
       e.target.bank_account_no.value,
-      e.target.ifsc_no.value,
+      e.target.swift_no.value,
       this.props.match.params.id
     );
 
@@ -62,15 +62,15 @@ class CompanyAddBankComponent extends React.Component {
                         />
                       </div>
                     </div>
-                    <label htmlFor="ifsc_no">IFSC No</label>
+                    <label htmlFor="swift_no">SWIFT No</label>
                     <div className="form-group">
                       <div className="form-line">
                         <input
                           type="text"
-                          id="ifsc_no"
-                          name="ifsc_no"
+                          id="swift_no"
+                          name="swift_no"
                           className="form-control"
-                          placeholder="Enter ifsc no"
+                          placeholder="Enter swift no"
                         />
                       </div>
                     </div>

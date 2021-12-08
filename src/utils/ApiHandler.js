@@ -98,7 +98,7 @@ class ApiHandler {
     return response;
   }
 
-  async saveCompanyBankData(bank_account_no, ifsc_no, company_id) {
+  async saveCompanyBankData(bank_account_no, swift_no, company_id) {
     await this.checkLogin();
     // Wait until token get updated
 
@@ -106,7 +106,7 @@ class ApiHandler {
       Config.companyBankApiUrl,
       {
         bank_account_no: bank_account_no,
-        ifsc_no: ifsc_no,
+        swift_no: swift_no,
         company_id: company_id,
       },
       { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
@@ -125,7 +125,23 @@ class ApiHandler {
     return response;
   }
 
-  async editCompanyBankData(bank_account_no, ifsc_no, company_id, id) {
+  async deleteCompanyBank(id) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.delete(
+      Config.companyBankApiUrl + "" + id + "/",
+      {
+        headers: {
+          Authorization: "Bearer " + AuthHandler.getLoginToken(),
+        },
+      }
+    );
+
+    return response;
+  }
+
+  async editCompanyBankData(bank_account_no, swift_no, company_id, id) {
     await this.checkLogin();
     // Wait until token get updated
 
@@ -133,7 +149,7 @@ class ApiHandler {
       Config.companyBankApiUrl + "" + id + "/",
       {
         bank_account_no: bank_account_no,
-        ifsc_no: ifsc_no,
+        swift_no: swift_no,
         company_id: company_id,
       },
       { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
@@ -193,8 +209,7 @@ class ApiHandler {
     medical_typ,
     buy_price,
     sell_price,
-    c_gst,
-    s_gst,
+    gst,
     batch_no,
     shelf_no,
     expire_date,
@@ -215,8 +230,7 @@ class ApiHandler {
         medical_typ: medical_typ,
         buy_price: buy_price,
         sell_price: sell_price,
-        c_gst: c_gst,
-        s_gst: s_gst,
+        gst: gst,
         batch_no: batch_no,
         shelf_no: shelf_no,
         expire_date: expire_date,
@@ -248,8 +262,7 @@ class ApiHandler {
     medical_typ,
     buy_price,
     sell_price,
-    c_gst,
-    s_gst,
+    gst,
     batch_no,
     shelf_no,
     expire_date,
@@ -271,8 +284,7 @@ class ApiHandler {
         medical_typ: medical_typ,
         buy_price: buy_price,
         sell_price: sell_price,
-        c_gst: c_gst,
-        s_gst: s_gst,
+        gst: gst,
         batch_no: batch_no,
         shelf_no: shelf_no,
         expire_date: expire_date,
@@ -303,6 +315,19 @@ class ApiHandler {
         data: [],
       };
     }
+  }
+
+  async deleteMedicine(id) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.delete(Config.medicineApiUrl + "" + id + "/", {
+      headers: {
+        Authorization: "Bearer " + AuthHandler.getLoginToken(),
+      },
+    });
+
+    return response;
   }
 
   // Employee
@@ -362,6 +387,19 @@ class ApiHandler {
     return response;
   }
 
+  async deleteEmployee(id) {
+    await this.checkLogin();
+    // Wait until token get updated
+
+    var response = await axios.delete(Config.employeeApiUrl + "" + id + "/", {
+      headers: {
+        Authorization: "Bearer " + AuthHandler.getLoginToken(),
+      },
+    });
+
+    return response;
+  }
+
   // Emloyee Salary
   async fetchEmpSalary(id) {
     await this.checkLogin();
@@ -391,7 +429,7 @@ class ApiHandler {
     return response;
   }
 
-  async saveEmpBank(bank_account_no, ifsc_no, employee_id) {
+  async saveEmpBank(bank_account_no, swift_no, employee_id) {
     await this.checkLogin();
     // Wait until token get updated
 
@@ -399,7 +437,7 @@ class ApiHandler {
       Config.employeeBankApiUrl,
       {
         bank_account_no: bank_account_no,
-        ifsc_no: ifsc_no,
+        swift_no: swift_no,
         employee_id: employee_id,
       },
       { headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() } }
@@ -487,6 +525,17 @@ class ApiHandler {
         headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
       }
     );
+
+    return response;
+  }
+
+  // Home api
+  async fetchHomeApiData() {
+    await this.checkLogin();
+
+    var response = await axios.get(Config.homeApiUrl, {
+      headers: { Authorization: "Bearer " + AuthHandler.getLoginToken() },
+    });
 
     return response;
   }

@@ -34,8 +34,7 @@ class MedicineAddComponent extends React.Component {
       e.target.medical_typ.value,
       e.target.buy_price.value,
       e.target.sell_price.value,
-      e.target.c_gst.value,
-      e.target.s_gst.value,
+      e.target.gst.value,
       e.target.batch_no.value,
       e.target.shelf_no.value,
       e.target.expire_date.value,
@@ -157,27 +156,15 @@ class MedicineAddComponent extends React.Component {
                         />
                       </div>
                     </div>
-                    <label htmlFor="c_gst">C GST</label>
+                    <label htmlFor="gst">GST</label>
                     <div className="form-group">
                       <div className="form-line">
                         <input
                           type="text"
-                          id="c_gst"
-                          name="c_gst"
+                          id="gst"
+                          name="gst"
                           className="form-control"
-                          placeholder="Enter C-GST"
-                        />
-                      </div>
-                    </div>
-                    <label htmlFor="s_gst">S GST</label>
-                    <div className="form-group">
-                      <div className="form-line">
-                        <input
-                          type="text"
-                          id="s_gst"
-                          name="s_gst"
-                          className="form-control"
-                          placeholder="Enter S-GST"
+                          placeholder="Enter GST"
                         />
                       </div>
                     </div>

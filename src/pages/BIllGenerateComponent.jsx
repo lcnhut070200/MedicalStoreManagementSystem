@@ -22,8 +22,7 @@ class BillGenerateComponent extends React.Component {
         qty: "",
         qty_type: "",
         unit_price: "",
-        c_gst: "",
-        s_gst: "",
+        gst: "",
         amount: "",
       },
     ],
@@ -129,8 +128,7 @@ class BillGenerateComponent extends React.Component {
       billDetails += "" + medicineDetails[i].unit_price;
       billDetails += "</td>";
       billDetails += "<td>";
-      billDetails +=
-        "" + medicineDetails[i].c_gst + "" + medicineDetails[i].s_gst;
+      billDetails += "" + medicineDetails[i].gst;
       billDetails += "</td>";
       billDetails += "<td>";
       billDetails += "" + medicineDetails[i].amount;
@@ -169,8 +167,7 @@ class BillGenerateComponent extends React.Component {
       qty: "",
       qty_type: "",
       unit_price: "",
-      c_gst: "",
-      s_gst: "",
+      gst: "",
       amount: "",
     });
     this.setState({});
@@ -190,8 +187,7 @@ class BillGenerateComponent extends React.Component {
     this.state.medicineDetails[index].qty = 1;
     this.state.medicineDetails[index].qty_type = "Pieces";
     this.state.medicineDetails[index].unit_price = item.sell_price;
-    this.state.medicineDetails[index].c_gst = item.c_gst;
-    this.state.medicineDetails[index].s_gst = item.s_gst;
+    this.state.medicineDetails[index].gst = item.gst;
     this.state.medicineDetails[index].medicine_name = item.name;
     this.state.medicineDetails[index].amount =
       parseInt(item.sell_price) + parseInt(item.c_gst) + parseInt(item.s_gst);
@@ -204,8 +200,7 @@ class BillGenerateComponent extends React.Component {
 
     this.state.medicineDetails[index].amount =
       (parseInt(this.state.medicineDetails[index].unit_price) +
-        parseInt(this.state.medicineDetails[index].c_gst) +
-        parseInt(this.state.medicineDetails[index].s_gst)) *
+        parseInt(this.state.medicineDetails[index].gst)) *
       value;
     this.state.medicineDetails[index].qty = value;
     this.setState({});

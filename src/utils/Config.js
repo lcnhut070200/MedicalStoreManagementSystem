@@ -28,6 +28,7 @@ class Config {
 
   // Customer Request
   static customerRequestApiUrl = "http://127.0.0.1:8000/api/customer_request/";
+  static homeApiUrl = "http://127.0.0.1:8000/api/home_api/";
 
   static homeUrl = "/home";
   static logoutPageUrl = "/logout";

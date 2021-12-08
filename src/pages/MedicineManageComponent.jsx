@@ -22,8 +22,7 @@ class MedicineManageComponent extends React.Component {
     medical_typ: "",
     buy_price: "",
     sell_price: "",
-    c_gst: "",
-    s_gst: "",
+    gst: "",
     batch_no: "",
     shelf_no: "",
     expire_date: "",
@@ -45,8 +44,7 @@ class MedicineManageComponent extends React.Component {
       e.target.medical_typ.value,
       e.target.buy_price.value,
       e.target.sell_price.value,
-      e.target.c_gst.value,
-      e.target.s_gst.value,
+      e.target.gst.value,
       e.target.batch_no.value,
       e.target.shelf_no.value,
       e.target.expire_date.value,
@@ -109,8 +107,7 @@ class MedicineManageComponent extends React.Component {
       medical_typ: this.state.medicineDataList[index].medical_typ,
       buy_price: this.state.medicineDataList[index].buy_price,
       sell_price: this.state.medicineDataList[index].sell_price,
-      c_gst: this.state.medicineDataList[index].c_gst,
-      s_gst: this.state.medicineDataList[index].s_gst,
+      gst: this.state.medicineDataList[index].gst,
       batch_no: this.state.medicineDataList[index].batch_no,
       shelf_no: this.state.medicineDataList[index].shelf_no,
       expire_date: this.state.medicineDataList[index].expire_date,
@@ -132,6 +129,12 @@ class MedicineManageComponent extends React.Component {
     this.state.medicineDetails[index][keyname] = value;
     this.setState({});
   };
+
+  async deleteMedicine(medId) {
+    var apiHandler = new ApiHandler();
+    var response = await apiHandler.deleteMedicine(medId);
+    this.LoadInitialData();
+  }
 
   render() {
     return (
@@ -172,13 +175,10 @@ class MedicineManageComponent extends React.Component {
                         <th>Medical type</th>
                         <th>Buy price</th>
                         <th>Sell price</th>
-                        {/* <th>C GST</th>
-                        <th>S GST</th> */}
                         <th>Batch no</th>
                         <th>Shelf no</th>
                         <th>Expire date</th>
                         <th>Mfg date</th>
-                        {/* <th>Description</th> */}
                         <th>In stock</th>
                         <th>Company</th>
                         <th>Added on</th>
@@ -193,13 +193,10 @@ class MedicineManageComponent extends React.Component {
                           <td>{medicine.medical_typ}</td>
                           <td>{medicine.buy_price}</td>
                           <td>{medicine.sell_price}</td>
-                          {/* <td>{medicine.c_gst}</td>
-                          <td>{medicine.s_gst}</td> */}
                           <td>{medicine.batch_no}</td>
                           <td>{medicine.shelf_no}</td>
                           <td>{medicine.expire_date}</td>
                           <td>{medicine.mfg_date}</td>
-                          {/* <td>{medicine.description}</td> */}
                           <td>{medicine.in_stock_total}</td>
                           <td>{medicine.company.name}</td>
                           <td>
@@ -211,6 +208,14 @@ class MedicineManageComponent extends React.Component {
                               onClick={() => this.viewMedicineDetails(index)}
                             >
                               View
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-block btn-danger"
+                              onClick={() => this.deleteMedicine(medicine.id)}
+                            >
+                              Delete
                             </button>
                           </td>
                         </tr>
@@ -281,29 +286,16 @@ class MedicineManageComponent extends React.Component {
                         />
                       </div>
                     </div>
-                    <label htmlFor="c_gst">C GST</label>
+                    <label htmlFor="gst">GST</label>
                     <div className="form-group">
                       <div className="form-line">
                         <input
                           type="text"
-                          id="c_gst"
-                          name="c_gst"
+                          id="gst"
+                          name="gst"
                           className="form-control"
-                          placeholder="Enter C-GST"
-                          defaultValue={this.state.c_gst}
-                        />
-                      </div>
-                    </div>
-                    <label htmlFor="s_gst">S GST</label>
-                    <div className="form-group">
-                      <div className="form-line">
-                        <input
-                          type="text"
-                          id="s_gst"
-                          name="s_gst"
-                          className="form-control"
-                          placeholder="Enter S-GST"
-                          defaultValue={this.state.s_gst}
+                          placeholder="Enter GST"
+                          defaultValue={this.state.gst}
                         />
                       </div>
                     </div>

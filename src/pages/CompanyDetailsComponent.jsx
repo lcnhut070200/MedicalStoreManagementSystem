@@ -82,6 +82,12 @@ class CompanyDetailsComponent extends React.Component {
     );
   };
 
+  async deleteCompanyBank(company_bank_id) {
+    var apiHandler = new ApiHandler();
+    var response = await apiHandler.deleteCompanyBank(company_bank_id);
+    this.fetchComanyData();
+  }
+
   render() {
     return (
       <section className="content">
@@ -259,7 +265,7 @@ class CompanyDetailsComponent extends React.Component {
                       <tr>
                         <th>#ID</th>
                         <th>Account No.</th>
-                        <th>IFSC Code</th>
+                        <th>SWIFT Code</th>
                         <th>Added On</th>
                         <th>Action</th>
                       </tr>
@@ -269,7 +275,7 @@ class CompanyDetailsComponent extends React.Component {
                         <tr key={company.id}>
                           <td>{company.id}</td>
                           <td>{company.bank_account_no}</td>
-                          <td>{company.ifsc_no}</td>
+                          <td>{company.swift_no}</td>
                           <td>{new Date(company.added_on).toLocaleString()}</td>
                           <td>
                             <button
@@ -278,7 +284,10 @@ class CompanyDetailsComponent extends React.Component {
                             >
                               EDIT
                             </button>
-                            <button className="btn btn-block btn-danger">
+                            <button
+                              className="btn btn-block btn-danger"
+                              onClick={() => this.deleteCompanyBank(company.id)}
+                            >
                               DELETE
                             </button>
                           </td>

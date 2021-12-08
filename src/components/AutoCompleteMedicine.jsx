@@ -2,16 +2,15 @@ import React from "react";
 import ApiHandler from "../utils/ApiHandler";
 
 class AutoCompleteMedicine extends React.Component {
-  state = {
-    onFocus: false,
-    medicineList: [],
-  };
-
   constructor(props) {
     super(props);
     this.loadDataMedicine = this.loadDataMedicine.bind(this);
     this.inputData = React.createRef();
   }
+  state = {
+    onFocus: false,
+    medicineList: [],
+  };
   onFocusChange = () => {
     this.setState({ onFocus: true });
   };
@@ -24,6 +23,7 @@ class AutoCompleteMedicine extends React.Component {
     var apiHandler = new ApiHandler();
     var dataResponse = await apiHandler.fetchMedicineByName(e.target.value);
     this.setState({ medicineList: dataResponse.data });
+    console.log("props:", this.props);
   }
 
   onShowItem = (medicine) => {

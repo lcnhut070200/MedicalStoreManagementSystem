@@ -97,7 +97,7 @@ class EmployeeDetailsComponent extends React.Component {
     var apiHandler = new ApiHandler();
     var response = await apiHandler.saveEmpBank(
       e.target.bank_account_no.value,
-      e.target.ifsc_no.value,
+      e.target.swift_no.value,
       this.props.match.params.id
     );
     console.log(response);
@@ -399,13 +399,13 @@ class EmployeeDetailsComponent extends React.Component {
                         </div>
                       </div>
                       <div className="col-lg-6">
-                        <label htmlFor="ifsc_no">IFSC No.</label>
+                        <label htmlFor="swift_no">SWIFT No.</label>
                         <div className="form-group">
                           <div className="form-line">
                             <input
                               type="text"
-                              id="ifsc_no"
-                              name="ifsc_no"
+                              id="swift_no"
+                              name="swift_no"
                               className="form-control"
                               placeholder="Enter bank account no"
                             />
@@ -475,7 +475,7 @@ class EmployeeDetailsComponent extends React.Component {
                       <tr>
                         <th>#ID</th>
                         <th>Account No.</th>
-                        <th>IFSC No.</th>
+                        <th>SWIFT No.</th>
                         <th>Added on</th>
                       </tr>
                     </thead>
@@ -484,7 +484,7 @@ class EmployeeDetailsComponent extends React.Component {
                         <tr key={bankDetail.id}>
                           <td>{bankDetail.id}</td>
                           <td>{bankDetail.bank_account_no}</td>
-                          <td>{bankDetail.ifsc_no}</td>
+                          <td>{bankDetail.swift_no}</td>
                           <td>
                             {new Date(bankDetail.added_on).toLocaleString()}
                           </td>

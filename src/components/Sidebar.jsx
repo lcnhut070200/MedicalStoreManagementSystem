@@ -51,9 +51,9 @@ class Sidebar extends React.Component {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                John Doe
+                Le Chanh Nhut
               </div>
-              <div className="email">john.doe@example.com</div>
+              <div className="email">nhutb1812842@student.ctu.edu.vn</div>
               <div className={this.state.defaultClass}>
                 <i
                   className="material-icons"

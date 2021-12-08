@@ -50,7 +50,7 @@ class AuthHandler {
     var token = this.getLoginToken();
     var tokenArray = token.split(".");
     var jwt = JSON.parse(atob(tokenArray[1]));
-
+    console.log(jwt);
     if (jwt && jwt.exp && Number.isFinite(jwt.exp)) {
       expire = jwt.exp * 1000;
     } else {
@@ -61,6 +61,7 @@ class AuthHandler {
       return false;
     }
 
+    console.log(("exp", jwt.exp * 1000) - Date.now());
     return Date.now() > expire;
   }
 }

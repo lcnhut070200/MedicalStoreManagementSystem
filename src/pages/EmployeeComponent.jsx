@@ -5,6 +5,7 @@ class EmployeeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.formSubmit = this.formSubmit.bind(this);
+    this.deleteEmployee = this.deleteEmployee.bind(this);
   }
 
   state = {
@@ -59,6 +60,12 @@ class EmployeeComponent extends React.Component {
   showEmpDetails = (eid) => {
     this.props.history.push("/employeeDetails/" + eid);
   };
+
+  async deleteEmployee(eid) {
+    var apiHandler = new ApiHandler();
+    var response = await apiHandler.deleteEmployee(eid);
+    this.updateDataAgain();
+  }
 
   render() {
     return (
@@ -220,6 +227,14 @@ class EmployeeComponent extends React.Component {
                               onClick={() => this.showEmpDetails(employee.id)}
                             >
                               View
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              className="btn btn-danger"
+                              onClick={() => this.deleteEmployee(employee.id)}
+                            >
+                              Delete
                             </button>
                           </td>
                         </tr>

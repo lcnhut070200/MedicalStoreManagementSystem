@@ -14,7 +14,7 @@ class CompanyEditBankComponent extends React.Component {
     btnMessage: 0,
     sendData: false,
     bank_account_no: "",
-    ifsc_no: "",
+    swift_no: "",
   };
 
   async formSubmit(e) {
@@ -24,7 +24,7 @@ class CompanyEditBankComponent extends React.Component {
     var apiHandler = new ApiHandler();
     var response = await apiHandler.editCompanyBankData(
       e.target.bank_account_no.value,
-      e.target.ifsc_no.value,
+      e.target.swift_no.value,
       this.props.match.params.company_id,
       this.props.match.params.id
     );
@@ -51,7 +51,7 @@ class CompanyEditBankComponent extends React.Component {
     console.log("data >>> ", companyData);
     this.setState({
       bank_account_no: companyData.data.data.bank_account_no,
-      ifsc_no: companyData.data.data.ifsc_no,
+      swift_no: companyData.data.data.swift_no,
     });
     this.setState({
       dataLoaded: true,
@@ -86,16 +86,16 @@ class CompanyEditBankComponent extends React.Component {
                         />
                       </div>
                     </div>
-                    <label htmlFor="ifsc_no">IFSC No</label>
+                    <label htmlFor="swift_no">SWIFT No</label>
                     <div className="form-group">
                       <div className="form-line">
                         <input
                           type="text"
-                          id="ifsc_no"
-                          name="ifsc_no"
+                          id="swift_no"
+                          name="swift_no"
                           className="form-control"
-                          placeholder="Enter ifsc no"
-                          defaultValue={this.state.ifsc_no}
+                          placeholder="Enter swift no"
+                          defaultValue={this.state.swift_no}
                         />
                       </div>
                     </div>

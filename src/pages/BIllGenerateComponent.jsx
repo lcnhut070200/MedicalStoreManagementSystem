@@ -182,7 +182,6 @@ class BillGenerateComponent extends React.Component {
   };
 
   showDataInInput = (index, item) => {
-    console.log(item);
     this.state.medicineDetails[index].id = item.id;
     this.state.medicineDetails[index].qty = 1;
     this.state.medicineDetails[index].qty_type = "Pieces";
@@ -190,7 +189,7 @@ class BillGenerateComponent extends React.Component {
     this.state.medicineDetails[index].gst = item.gst;
     this.state.medicineDetails[index].medicine_name = item.name;
     this.state.medicineDetails[index].amount =
-      parseInt(item.sell_price) + parseInt(item.c_gst) + parseInt(item.s_gst);
+      parseInt(item.sell_price) + parseInt(item.gst);
     this.setState({});
   };
 

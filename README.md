@@ -12,7 +12,7 @@
   <h3 align="center">Medical Store System Management</h3>
 
   <p align="center">
-    A single page application built with MERN Stack from scratch (MongoDB + Mongoose, Express, React & NodeJs)
+    A single page application built with ReactJS and Django framework
   </p>
 </div>
 
@@ -98,38 +98,35 @@ Access key and mapStyle can be found once a MapBox account has been created wher
     git clone https://github.com/lcnhut070200/MedicalStoreManagementSystem
     ```
 
-3. Install packages for the frontend
-
-   - Move to frontend folder
+2. Install packages for the frontend
 
     ```sh
-    cd frontend
-
-    yarn install
+    npm install
     ```
 
 <!--    - Get a free API Key from Mapbox at [their website](https://www.mapbox.com/). -->
 
 <!--    - Update the API in "./frontend/.env" (You can see it in [.env.example](https://github.com/trongbui1105/MERN-Travel-Map/blob/master/frontend/.env.example)) -->
 
-    ```sh
+<!--     ```sh
     REACT_APP_MAPBOX = <YOUR_MAPBOX_API_KEY>
-    ```
+    ``` -->
 
    - Run the frontend server
-    ```sh
-    yarn start
-    ```
+  
+        ```sh
+        npm start
+        ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 
-## Usage
+<!-- ## Usage
 
-As the introduction indicated, this is an app where you can register, log in then write a review and rating of places you have visited. Users can go on the app and see other user's comments on the map.
+As the introduction indicated, this is an app where you can register, log in then write a review and rating of places you have visited. Users can go on the app and see other user's comments on the map. -->
 
-<p align="right">(<a href="#top">back to top</a>)</p>
+<!-- <p align="right">(<a href="#top">back to top</a>)</p> -->
 
 <!-- CONTRIBUTING -->
 
